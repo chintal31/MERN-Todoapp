@@ -9,7 +9,7 @@ const Todo = (props) => (
     <td> {props.todo.todopriority} </td>
     <td> {props.todo.todocompleted.toString()} </td>
     <td>
-      <Link to={'/edit/'+props.todo._id}>Edit</Link>
+      <button onClick={()=> {props.handleedit(props.todo._id)}}>Edit</button>
       <button onClick={() => {props.handledelete(props.todo._id)}}> Delete </button>
     </td>
   </tr>
@@ -24,9 +24,12 @@ export default class TodosList extends Component {
         this.state = {todos: []};
     }
 
+    handle_edit = (id) =>{
+        this.props.history.push('/edit/'+id);
+    }
+
     handle_delete = (id) =>{
 
-        console.log("in delete method",id);
 
       axios.delete("http://localhost:4000/todos/delete/"+id)
           .then(res => console.log(res.data))
@@ -57,7 +60,7 @@ export default class TodosList extends Component {
 
     todoList() {
         return this.state.todos.map((currentTodo, i)=> {
-            return <Todo todo={currentTodo} handledelete={this.handle_delete} key={i} />;
+            return <Todo todo={currentTodo} handleedit={this.handle_edit} handledelete={this.handle_delete} key={i} />;
         });
     }
 

@@ -12,6 +12,7 @@ app.use(cors());
 //For parsing URL data and assembling for easy extraction.
 app.use(bodyParser.json());
 
+
 //Database connectivity
 mongoose.connect('mongodb://127.0.0.1:27017/todos', { useNewUrlParser: true });
 mongoose.connection.once('open', function() {
